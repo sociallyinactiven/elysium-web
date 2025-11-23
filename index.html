@@ -3,115 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download Elysium - A modern application">
     <title>Elysium Download</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: rgba(59, 130, 246, 0.1);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --bg-dark: #0f1419;
+            --bg-card: rgba(15, 23, 42, 0.8);
+            --border-color: rgba(59, 130, 246, 0.2);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f1419;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.08) 0%, transparent 50%);
-            color: #e2e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 30px 20px;
             line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
         .container {
-            max-width: 750px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .logo {
-            margin-bottom: 25px;
-        }
-
-        .logo img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
-            border: 2px solid rgba(59, 130, 246, 0.2);
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .download-section {
-            margin-top: 35px;
+            margin-top: 0;
         }
 
         .download-btn {
-            display: inline-block;
-            padding: 16px 42px;
-            background: #3b82f6;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.15rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
-            transform: rotate(-0.2deg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(59, 130, 246, 0.3),
+                0 0 0 0 rgba(59, 130, 246, 0.5);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .download-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .download-btn:hover {
-            transform: translateY(-1px) rotate(-0.2deg);
-            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 15px 40px rgba(59, 130, 246, 0.4),
+                0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
         .download-btn:active {
-            transform: translateY(0) rotate(-0.2deg);
+            transform: translateY(0);
+            box-shadow: 
+                0 5px 20px rgba(59, 130, 246, 0.3),
+                0 0 0 2px rgba(59, 130, 246, 0.2);
         }
 
+        .download-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-icon {
+            position: relative;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+        }
+
+
         .note {
-            margin-top: 30px;
-            padding: 12px;
-            background: rgba(59, 130, 246, 0.08);
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            border: 1px dashed rgba(59, 130, 246, 0.3);
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 800px;
+            padding: 18px 24px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            border: 1px dashed var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .note:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.05);
         }
 
         .note a {
             color: #60a5fa;
             text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .note a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #60a5fa;
+            transition: width 0.3s ease;
+        }
+
+        .note a:hover::after {
+            width: 100%;
         }
 
         .note a:hover {
-            text-decoration: underline;
+            color: #93c5fd;
         }
 
         @media (max-width: 768px) {
             .download-btn {
-                padding: 14px 32px;
-                font-size: 1rem;
+                padding: 16px 36px;
+                font-size: 1.1rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <div id="vanta-bg"></div>
     <div class="container">
-        <div class="logo">
-            <img src="https://i.postimg.cc/d0JXNKwp/image-(3).png" alt="Elysium">
-        </div>
-
         <div class="download-section">
-            <a href="https://work.ink/1YiU/elysium" class="download-btn" target="_blank">Download</a>
+            <a href="https://work.ink/1YiU/elysium" class="download-btn" target="_blank" rel="noopener noreferrer">
+                <span>get now</span>
+            </a>
         </div>
 
         <div class="note">
-            support the dev - <a href="https://guns.lol/myy" target="_blank">https://guns.lol/myy</a> (please)
+            💙 Support the developer - <a href="https://guns.lol/myy" target="_blank" rel="noopener noreferrer">https://guns.lol/myy</a> (please)
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3b82f6,
+            backgroundColor: 0x0f1419,
+            points: 20.00,
+            spacing: 10.00
+        })
+    </script>
 </body>
 </html>
